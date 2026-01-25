@@ -7,13 +7,16 @@ import User from "../../../../models/User";
 // ✅ Mark this route as dynamic (API routes are always dynamic, but explicit is better)
 export const dynamic = "force-dynamic";
 
-export const authOptions = {
-  providers: [
-    GitHubProvider({
+// ✅ Guard against missing env vars during build
+const gitHubProvider = process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET
+  ? GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    }),
-  ],
+    })
+  : null;
+
+export const authOptions = {
+  providers: gitHubProvider ? [gitHubProvider] : [],
 
   callbacks: {
     async signIn({ user, account, profile }) {
@@ -59,7 +62,7 @@ export const authOptions = {
     },
   },
 
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || "default-secret-for-build-only",
 };
 
 const handler = NextAuth(authOptions);
