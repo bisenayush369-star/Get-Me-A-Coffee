@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import connectDB from "../../db/connectDb";
 import User from "../../../models/User";
 
+export const dynamic = 'force-dynamic'
+
 // ✅ GET PROFILE (public page)
 export async function GET(req) {
   try {
