@@ -25,7 +25,7 @@ export const authOptions = {
           if (!existingUser) {
             await User.create({
               name: user.name || profile.login,
-              username: profile.login, // ✅ IMPORTANT
+              username: profile.login,
               email,
               image: user.image,
             });
