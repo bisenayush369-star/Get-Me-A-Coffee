@@ -6,15 +6,6 @@ import User from "../../../../models/User";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-// Validate required environment variables
-if (!process.env.NEXTAUTH_SECRET) {
-  throw new Error("NEXTAUTH_SECRET is not defined");
-}
-
-if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
-  console.warn("GitHub OAuth credentials not configured");
-}
-
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   
