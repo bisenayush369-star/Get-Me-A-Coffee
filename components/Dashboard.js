@@ -1,26 +1,24 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useCallback } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
 const Dashboard = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState(() => ({
+    name: session?.user?.name || "",
+    email: session?.user?.email || "",
+  }))
 
   useEffect(() => {
     if (status === "loading") return
 
     if (!session) {
       router.push("/login")
-    } else {
-      setForm({
-        name: session.user.name || "",
-        email: session.user.email || "",
-      })
     }
-  }, [session, status])
+  }, [status, session, router])
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })

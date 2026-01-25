@@ -62,7 +62,7 @@ export default function Home() {
       {/* Feature 1 */}
       <div className="flex flex-col items-center">
         <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/10 flex items-center justify-center mb-3 sm:mb-4">
-          <img src="/worker.gif" className="w-8 sm:w-10" />
+          <img src="/worker.gif" alt="Fans want to help" className="w-8 sm:w-10" />
         </div>
         <h3 className="font-semibold text-sm sm:text-base">Fans want to help</h3>
         <p className="text-xs sm:text-sm text-gray-400 max-w-[220px]">
@@ -73,7 +73,7 @@ export default function Home() {
       {/* Feature 2 */}
       <div className="flex flex-col items-center">
         <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/10 flex items-center justify-center mb-3 sm:mb-4">
-          <img src="/dollar.gif" className="w-8 sm:w-10" />
+          <img src="/dollar.gif" alt="Get paid easily" className="w-8 sm:w-10" />
         </div>
         <h3 className="font-semibold text-sm sm:text-base">Get paid easily</h3>
         <p className="text-xs sm:text-sm text-gray-400 max-w-[220px]">
@@ -84,7 +84,7 @@ export default function Home() {
       {/* Feature 3 */}
       <div className="flex flex-col items-center">
         <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/10 flex items-center justify-center mb-3 sm:mb-4">
-          <img src="/member.gif" className="w-8 sm:w-10" />
+          <img src="/member.gif" alt="Build community" className="w-8 sm:w-10" />
         </div>
         <h3 className="font-semibold text-sm sm:text-base">Build community</h3>
         <p className="text-xs sm:text-sm text-gray-400 max-w-[220px]">

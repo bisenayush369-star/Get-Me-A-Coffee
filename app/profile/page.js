@@ -44,7 +44,7 @@ export default function ProfilePage() {
     };
 
     fetchProfile();
-  }, [session, status]);
+  }, [session, status, router]);
 
   if (!user) return null;
 
