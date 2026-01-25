@@ -17,6 +17,16 @@ const gitHubProvider = process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT
 
 export const authOptions = {
   providers: gitHubProvider ? [gitHubProvider] : [],
+  
+  pages: {
+    signIn: "/login",
+    error: "/auth/error",
+  },
+
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
 
   callbacks: {
     async signIn({ user, account, profile }) {
@@ -45,7 +55,7 @@ export const authOptions = {
       }
     },
 
-    async session({ session }) {
+    async session({ session, token }) {
       await connectDb();
 
       if (session.user?.email) {
@@ -59,6 +69,13 @@ export const authOptions = {
       }
 
       return session;
+    },
+
+    async jwt({ token, user }) {
+      if (user?.email) {
+        token.email = user.email;
+      }
+      return token;
     },
   },
 
