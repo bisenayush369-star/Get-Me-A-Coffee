@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { initiate } from "../../actions/useractions";
+import { initiate } from "../../../actions/useractions";
 
 export async function POST(req) {
   try {
