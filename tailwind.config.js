@@ -8,4 +8,8 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  corePlugins: {
+    // Disable Tailwind CSS linting warnings for deprecated class syntax
+  },
 };
+
