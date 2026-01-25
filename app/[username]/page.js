@@ -58,8 +58,8 @@ if (
           </span>
         </div>
 
-        <div className="absolute bottom-0 left-0 h-[3px] w-full bg-slate-200">
-          <div className="h-full bg-gradient-to-r from-purple-600 to-blue-500 animate-toast-progress" />
+        <div className="absolute bottom-0 left-0 h-0.75 w-full bg-slate-200">
+          <div className="h-full bg-linear-to-r from-purple-600 to-blue-500 animate-toast-progress" />
         </div>
       </div>
     ),
@@ -111,7 +111,7 @@ const totalRaised = payments.reduce(
   }
 
   if (username) fetchUser()
-}, [username])
+}, [username, payments])
 
 
   const pay = async (amount) => {
@@ -182,8 +182,8 @@ toast.custom(
       </div>
 
       {/* progress bar */}
-      <div className="absolute bottom-0 left-0 h-[3px] w-full bg-slate-200">
-        <div className="h-full bg-gradient-to-r from-purple-600 to-green-400 animate-toast-progress" />
+      <div className="absolute bottom-0 left-0 h-0.75 w-full bg-slate-200">
+        <div className="h-full bg-linear-to-r from-purple-600 to-green-400 animate-toast-progress" />
       </div>
     </div>
   ),
@@ -213,7 +213,7 @@ const emailUsername = user?.email?.split("@")[0];
       <div className="min-h-screen bg-[#0b1220] text-white">
 
       {/* COVER */}
-      <div className="relative w-full h-48 sm:h-64 md:h-[350px]">
+      <div className="relative w-full h-48 sm:h-64 md:h-87.5">
         <img
           className="w-full h-full object-cover"
           src={user?.coverPic || DEFAULT_COVER}
@@ -224,7 +224,7 @@ const emailUsername = user?.email?.split("@")[0];
       {/* PROFILE */}
       <div className="flex justify-center -mt-12 sm:-mt-16 md:-mt-20 relative z-10">
         <img
-          className="rounded-full w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] md:w-[150px] md:h-[150px] border-4 border-[#0b1220]"
+          className="rounded-full w-25 h-25 sm:w-30 sm:h-30 md:w-37.5 md:h-37.5 border-4 border-[#0b1220]"
           src={user?.profilePic || DEFAULT_PROFILE}
           alt="profile"
         />
@@ -378,8 +378,8 @@ const emailUsername = user?.email?.split("@")[0];
                 <button
   type="button"
   onClick={() => pay(Number(paymentform.amount))}
-  className="mt-2 text-white bg-gradient-to-br from-purple-600 to-blue-500
-  hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
+  className="mt-2 text-white bg-linear-to-br from-purple-600 to-blue-500
+  hover:bg-linear-to-bl focus:ring-4 focus:outline-none
   focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
 >
   Pay
@@ -390,7 +390,7 @@ const emailUsername = user?.email?.split("@")[0];
   <button
     type="button"
     onClick={() => pay(10)}
-    className="flex-1 min-w-[70px] bg-slate-800 px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-base"
+    className="flex-1 min-w-17.5 bg-slate-800 px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-base"
   >
     Pay $10
   </button>
@@ -398,7 +398,7 @@ const emailUsername = user?.email?.split("@")[0];
   <button
     type="button"
     onClick={() => pay(20)}
-    className="flex-1 min-w-[70px] bg-slate-800 px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-base"
+    className="flex-1 min-w-17.5 bg-slate-800 px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-base"
   >
     Pay $20
   </button>
@@ -406,7 +406,7 @@ const emailUsername = user?.email?.split("@")[0];
   <button
     type="button"
     onClick={() => pay(30)}
-    className="flex-1 min-w-[70px] bg-slate-800 px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-base"
+    className="flex-1 min-w-17.5 bg-slate-800 px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-base"
   >
     Pay $30
   </button>

@@ -12,14 +12,14 @@ const About = () => {
                 <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">How It Works</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
-                        <img className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex-shrink-0" src="/member.gif" alt="Fans Want to Collaborate" />
+                        <img className="w-16 h-16 sm:w-20 sm:h-20 rounded-full shrink-0" src="/member.gif" alt="Fans Want to Collaborate" />
                         <div>
                             <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">Fans Want to Collaborate</h3>
                             <p className="text-sm sm:text-base">Your fans are enthusiastic about collaborating with you on your projects.</p>
                         </div>
                     </div>
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
-                        <img className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex-shrink-0" src="/dollar.gif" alt="Support Through Coffee" />
+                        <img className="w-16 h-16 sm:w-20 sm:h-20 rounded-full shrink-0" src="/dollar.gif" alt="Support Through Coffee" />
                         <div>
                             <h3 className="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">Support Through Coffee</h3>
                             <p className="text-sm sm:text-base">Receive support from your fans in the form of Coffee purchases, directly contributing to your project funding.</p>
