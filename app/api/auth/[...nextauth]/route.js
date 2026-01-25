@@ -4,19 +4,28 @@ import GitHubProvider from "next-auth/providers/github";
 import connectDb from "../../../db/connectDb";
 import User from "../../../../models/User";
 
-// ✅ Mark this route as dynamic (API routes are always dynamic, but explicit is better)
+// ✅ Mark this route as dynamic
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
-// ✅ Guard against missing env vars during build
-const gitHubProvider = process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET
-  ? GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    })
-  : null;
+// ✅ Ensure providers are always available
+const getProviders = () => {
+  const providers = [];
+  
+  if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
+    providers.push(
+      GitHubProvider({
+        clientId: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      })
+    );
+  }
+  
+  return providers;
+};
 
 export const authOptions = {
-  providers: gitHubProvider ? [gitHubProvider] : [],
+  providers: getProviders(),
   
   pages: {
     signIn: "/login",
@@ -33,7 +42,7 @@ export const authOptions = {
       try {
         await connectDb();
 
-        if (account.provider === "github") {
+        if (account?.provider === "github") {
           const email = user.email || `${profile.login}@github.com`;
 
           let existingUser = await User.findOne({ email });
@@ -55,31 +64,48 @@ export const authOptions = {
       }
     },
 
-    async session({ session, token }) {
-      await connectDb();
-
-      if (session.user?.email) {
-        const dbUser = await User.findOne({
-          email: session.user.email,
-        });
-
-        if (dbUser) {
-          session.user.username = dbUser.username;
-        }
-      }
-
-      return session;
-    },
-
-    async jwt({ token, user }) {
-      if (user?.email) {
+    async jwt({ token, user, account }) {
+      if (user) {
+        token.id = user.id;
         token.email = user.email;
       }
       return token;
     },
+
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id;
+      }
+
+      try {
+        await connectDb();
+
+        if (session.user?.email) {
+          const dbUser = await User.findOne({
+            email: session.user.email,
+          });
+
+          if (dbUser) {
+            session.user.username = dbUser.username;
+          }
+        }
+      } catch (error) {
+        console.error("Session callback error:", error);
+      }
+
+      return session;
+    },
   },
 
-  secret: process.env.NEXTAUTH_SECRET || "default-secret-for-build-only",
+  events: {
+    async signIn({ user, account, profile, isNewUser }) {
+      console.log(`User ${user.email} signed in`);
+    },
+  },
+
+  debug: process.env.NODE_ENV === "development",
+
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
