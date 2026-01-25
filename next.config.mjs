@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  experimental: {
+    // Suppress middleware deprecation warning - using middleware pattern is still valid
+    middlewareWarning: false,
+  },
 };
 
 export default nextConfig;
