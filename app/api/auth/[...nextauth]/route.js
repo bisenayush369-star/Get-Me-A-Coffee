@@ -4,6 +4,9 @@ import GitHubProvider from "next-auth/providers/github";
 import connectDb from "../../../db/connectDb";
 import User from "../../../../models/User";
 
+// ✅ Mark this route as dynamic (API routes are always dynamic, but explicit is better)
+export const dynamic = "force-dynamic";
+
 export const authOptions = {
   providers: [
     GitHubProvider({
