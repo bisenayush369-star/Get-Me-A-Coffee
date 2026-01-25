@@ -6,26 +6,26 @@ import User from "../../../../models/User";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-const authConfig = {
+export const authOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
+  
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID || "",
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
     }),
   ],
+  
   pages: {
     signIn: "/login",
     error: "/auth/error",
   },
+  
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
-    updateAge: 24 * 60 * 60,
   },
-  jwt: {
-    secret: process.env.NEXTAUTH_SECRET,
-  },
-  secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
     async signIn(params) {
       const { user, account, profile } = params;
@@ -53,7 +53,7 @@ const authConfig = {
     },
 
     async jwt(params) {
-      const { token, user, account } = params;
+      const { token, user } = params;
       if (user) {
         token.id = user.id;
       }
@@ -61,7 +61,7 @@ const authConfig = {
     },
 
     async session(params) {
-      const { session, token } = params;
+      const { session } = params;
       try {
         await connectDb();
 
@@ -83,6 +83,6 @@ const authConfig = {
   },
 };
 
-const handler = NextAuth(authConfig);
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
