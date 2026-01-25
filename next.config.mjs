@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    // Suppress middleware deprecation warning - using middleware pattern is still valid
-    middlewareWarning: false,
-  },
+  // Current configuration is valid for Next.js 16
 };
 
 export default nextConfig;

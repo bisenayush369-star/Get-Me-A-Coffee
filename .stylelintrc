@@ -1,0 +1,11 @@
+{
+  "extends": ["stylelint-config-tailwindcss"],
+  "rules": {
+    "tailwindcss/classnames-order": null,
+    "tailwindcss/enforces-negative-arbitrary-values": null,
+    "tailwindcss/enforces-non-nesting-selectors": null,
+    "tailwindcss/migration-from-tailwind-2": null,
+    "tailwindcss/no-arbitrary-value": null,
+    "tailwindcss/no-contradicting-classname": "warning"
+  }
+}
