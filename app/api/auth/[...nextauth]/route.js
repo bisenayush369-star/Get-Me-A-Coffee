@@ -30,7 +30,9 @@ export const authOptions = {
     async signIn(params) {
       const { user, account, profile } = params;
       try {
-        await connectDb();
+        if (!global.mongoose) {
+  await connectDb();
+}
 
         if (account.provider === "github") {
           const email = user.email || `${profile.login}@github.com`;
