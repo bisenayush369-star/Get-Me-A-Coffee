@@ -6,7 +6,7 @@ import User from "../../../../models/User"
 
 export const authOptions = {
   pages: {
-  error: "/auth-error",
+  error: "/auth/error",
 },
   providers: [
     GitHubProvider({
