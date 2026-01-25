@@ -1,32 +1,24 @@
 import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-export async function middleware(request) {
-  const { pathname } = request.nextUrl;
+export async function middleware(req) {
+  const { pathname } = req.nextUrl;
 
-  // Skip NextAuth routes
+  // Never touch NextAuth APIs
   if (pathname.startsWith("/api/auth")) {
     return NextResponse.next();
   }
 
-  // Skip public routes
-  if (pathname === "/" || pathname === "/about" || pathname.startsWith("/login") || pathname.match(/^\/[^/]+$/)) {
+  // Public routes
+  if (pathname === "/" || pathname === "/about" || pathname === "/login") {
     return NextResponse.next();
   }
 
-  // Protect dashboard and profile routes
+  // Protected routes
   if (pathname.startsWith("/dashboard") || pathname.startsWith("/profile")) {
-    try {
-      const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
-
-      if (!token) {
-        const loginUrl = new URL("/login", request.url);
-        return NextResponse.redirect(loginUrl);
-      }
-    } catch (error) {
-      console.error("Middleware auth error:", error);
-      const loginUrl = new URL("/login", request.url);
-      return NextResponse.redirect(loginUrl);
+    const token = await getToken({ req });
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", req.url));
     }
   }
 
@@ -34,7 +26,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next|.*\\..*|public).*)",
-  ],
+  matcher: ["/dashboard/:path*", "/profile/:path*"],
 };
