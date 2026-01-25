@@ -5,6 +5,9 @@ import connectDb from "../../../db/connectDb"
 import User from "../../../../models/User"
 
 export const authOptions = {
+  pages: {
+  error: "/auth-error",
+},
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
