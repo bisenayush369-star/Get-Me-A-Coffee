@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import connectDB from "../../db/connectDb";
 import Payment from "../../../models/Payment";
 
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
 
 export async function GET(req) {
   try {

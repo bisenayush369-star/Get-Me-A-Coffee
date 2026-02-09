@@ -12,16 +12,17 @@ const DEFAULT_COVER =
 const DEFAULT_PROFILE =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgVfHORQFLyUf_rNove-xUmxIskDeMJ63REz_YIMQ6S0vCyQdkBvJos4igKspvCgpqnpy8h0xM--1uckzZIxDgyoHy37-MowkF-YzvVx8&s=10"
 
-  const savePayment = async (data) => {
-  await fetch("/api/payments", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-};
+//   const savePayment = async (data) => {
+//   await fetch("/api/payments", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(data),
+//   });
+// };
 
 const Username = () => {
-  const { username } = useParams()
+  const params = useParams()
+const username = decodeURIComponent(params.username)
   const [paymentform, setPaymentform] = useState({ name: "", message: "", amount: "" })
   const [currentUser, setCurrentUser] = useState({})
   const [payments, setPayments] = useState([]);

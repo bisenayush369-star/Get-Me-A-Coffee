@@ -52,13 +52,14 @@ if (!user.razorpayid || !user.razorpaysecret) {
   const order = await instance.orders.create(options)
 
   // ✅ SAVE PAYMENT
-  await Payment.create({
-  oid: order.id,
-  amount: amount,
-  to_user: to_username,
-  name: paymentform.name || "Anonymous",
-  message: paymentform.message || "",
-})
+//   await Payment.create({
+//   oid: order.id,
+//   amount: amount,
+//   to_user: to_username,
+//   name: paymentform.name || "Anonymous",
+//   message: paymentform.message || "",
+//   done: true,
+// })
 
   return order
 }
