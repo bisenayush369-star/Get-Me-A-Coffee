@@ -8,11 +8,13 @@ export const runtime = "nodejs";
 
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
+  trustHost: true,
   
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID || "",
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   
