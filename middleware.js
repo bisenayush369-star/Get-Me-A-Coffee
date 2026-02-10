@@ -4,17 +4,16 @@ import { getToken } from "next-auth/jwt";
 export async function middleware(req) {
   const { pathname } = req.nextUrl;
 
-  // ✅ VERY IMPORTANT: never block NextAuth
+  // ✅ Never touch NextAuth routes
   if (pathname.startsWith("/api/auth")) {
     return NextResponse.next();
   }
 
-  // Public pages
+  // Public routes
   if (
     pathname === "/" ||
     pathname.startsWith("/login") ||
-    pathname.startsWith("/about") ||
-    pathname.startsWith("/auth")
+    pathname.startsWith("/about")
   ) {
     return NextResponse.next();
   }
@@ -35,5 +34,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*", "/api/auth/:path*"],
+  matcher: ["/dashboard/:path*", "/profile/:path*"],
 };
