@@ -4,33 +4,36 @@ import { getToken } from "next-auth/jwt";
 export async function middleware(req) {
   const { pathname } = req.nextUrl;
 
-  // 🚨 NEVER intercept NextAuth routes
+  // ✅ VERY IMPORTANT: never block NextAuth
   if (pathname.startsWith("/api/auth")) {
     return NextResponse.next();
   }
 
-  // Public routes
+  // Public pages
   if (
     pathname === "/" ||
     pathname.startsWith("/login") ||
+    pathname.startsWith("/about") ||
     pathname.startsWith("/auth")
   ) {
     return NextResponse.next();
   }
 
   // Protected routes
-  const token = await getToken({
-    req,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
+  if (pathname.startsWith("/dashboard") || pathname.startsWith("/profile")) {
+    const token = await getToken({
+      req,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
 
-  if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*"],
+  matcher: ["/dashboard/:path*", "/profile/:path*", "/api/auth/:path*"],
 };
