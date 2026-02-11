@@ -13,7 +13,7 @@
 export async function GET(req) {
   // Import authOptions at request time (not module load time)
   // This ensures we see the actual runtime values
-  const { authOptions } = await import("../auth/[...nextauth]/route.js");
+  const { authOptions } = await import("../../auth/[...nextauth]/route.js");
 
   // Get GitHub provider (NextAuth internal provider object)
   const githubProvider = authOptions.providers.find(p => p.id === "github");
