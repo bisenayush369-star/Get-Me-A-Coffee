@@ -1,4 +1,4 @@
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function GET(req) {
   // Only allow in development
