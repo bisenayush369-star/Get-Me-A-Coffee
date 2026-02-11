@@ -6,14 +6,28 @@ import User from "../../../../models/User";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
+// ========== DEBUG LOGGING ==========
+const clientId = process.env.GITHUB_CLIENT_ID || "";
+const clientSecret = process.env.GITHUB_CLIENT_SECRET || "";
+
+console.log("=== NEXTAUTH INIT ===");
+console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
+console.log("NEXTAUTH_SECRET exists:", !!process.env.NEXTAUTH_SECRET);
+console.log("GITHUB_CLIENT_ID:", clientId);
+console.log("GITHUB_CLIENT_SECRET exists:", !!clientSecret);
+console.log("GITHUB_CLIENT_SECRET first 10 chars:", clientSecret.substring(0, 10));
+console.log("Node env:", process.env.NODE_ENV);
+console.log("=== END DEBUG ===\n");
+
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   trustHost: true,
+  debug: process.env.NODE_ENV === "development", // Enable NextAuth debug in dev
   
   providers: [
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID || "",
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+      clientId: clientId,
+      clientSecret: clientSecret,
       allowDangerousEmailAccountLinking: true,
     }),
   ],
@@ -89,4 +103,15 @@ export const authOptions = {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+// Middleware to log OAuth redirect
+const loggingHandler = (req, res) => {
+  if (req.url && req.url.includes("/signin/github")) {
+    console.log("\n=== GITHUB SIGNIN REQUEST ===");
+    console.log("URL:", req.url);
+    console.log("Query:", req.query);
+    console.log("=== END SIGNIN ===\n");
+  }
+  return handler(req, res);
+};
+
+export { loggingHandler as GET, loggingHandler as POST };
