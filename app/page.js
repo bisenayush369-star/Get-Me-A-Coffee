@@ -132,7 +132,7 @@ export default function Home() {
 
     {/* GitHub */}
     <a
-      href="https://github.com/YOUR_GITHUB"
+      href="https://github.com/bisenayush369-star/Get-Me-A-Coffee"
       target="_blank"
       rel="noopener noreferrer"
       className="flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-6 py-2 sm:py-3 border border-white/10 rounded-lg hover:bg-white/5 transition text-xs sm:text-sm"
