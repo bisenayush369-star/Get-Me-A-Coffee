@@ -110,7 +110,7 @@ export default function Home() {
 
     {/* LinkedIn */}
     <a
-      href="https://www.linkedin.com/in/ayush-bisen-53a970398/"
+      href="https://www.linkedin.com/in/ayush-bisen-a24236401/"
       target="_blank"
       rel="noopener noreferrer"
       className="flex items-center justify-center gap-3 px-6 py-3 border border-white/10 rounded-lg hover:bg-white/5 transition"
